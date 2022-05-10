@@ -10,6 +10,7 @@ import (
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
+
 func Map(Size_x int, Size_y int) [][]string {
 	Map := make([][]string, Size_x)
 	for i := 0; i < Size_x; i++ {
@@ -17,7 +18,18 @@ func Map(Size_x int, Size_y int) [][]string {
 	}
 	return Map
 }
-func DefinMap(Difficulty int, Map_With_Size [][]string, Size_x int) ([][]string, int) {
+
+func DefineMapNull(Map_Null [][]string, _ int) ([][]string, int) {
+	for i := range Map_Null {
+		for j := range Map_Null[i] {
+			Map_Null[i][j] = "."
+		}
+		fmt.Println(Map_Null[i])
+	}
+	return Map_Null, 0
+}
+
+func DefineMap(Difficulty int, Map_With_Size [][]string, Size_x int) ([][]string, int) {
 	Count_Bomber := 0
 	for i := 0; i < Size_x; i++ {
 		for j := range Map_With_Size[i] {
@@ -29,7 +41,6 @@ func DefinMap(Difficulty int, Map_With_Size [][]string, Size_x int) ([][]string,
 			}
 		}
 	}
-	//fmt.Println(Map_With_Size)
 	for i := range Map_With_Size {
 		for j := range Map_With_Size[i] {
 			if Map_With_Size[i][j] == "x" {
@@ -40,9 +51,14 @@ func DefinMap(Difficulty int, Map_With_Size [][]string, Size_x int) ([][]string,
 	return Map_With_Size, Count_Bomber
 }
 
-func StartNewgame(Size_x int, Size_y int, Difficulty int) ([][]string, int) {
+func StartNewgame(Size_x int, Size_y int, Difficulty int, Choose int) ([][]string, int) {
 	Map_With_Size := Map(Size_x, Size_y)
-	return DefinMap(Difficulty, Map_With_Size, Size_x)
+	if Choose == 1 {
+		return DefineMapNull(Map_With_Size, Choose)
+	} else {
+		return DefineMap(Difficulty, Map_With_Size, Size_x)
+	}
+
 }
 
 func initMap(Map [][]string, Bombe int) [][]string {
@@ -292,11 +308,17 @@ func initMap(Map [][]string, Bombe int) [][]string {
 }
 
 func main() {
-	Size_x := 15
-	Size_y := 16
-	Map, Bombes := StartNewgame(Size_x, Size_y, 2)
+	Size_x := 50
+	Size_y := 50
+	Difficulty := 2
+	Choose := 1
+
+	Map, Bombes := StartNewgame(Size_x, Size_y, Difficulty, Choose-1)
 	Map_End := initMap(Map, Bombes)
 	for i := range Map_End {
 		fmt.Println(Map_End[i])
 	}
+
+	StartNewgame(Size_x, Size_y, Difficulty, Choose)
+
 }
