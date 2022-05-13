@@ -164,19 +164,9 @@ func PlaceBombe(M: inout [[Int]]) -> [[Int]]{
                             }
                         }
                     }
-                 
-                   
                 }
-                    
-                    
-                        
-                
-               
-               
             }
-            
         }
-       
     return M
 }
 
@@ -201,6 +191,7 @@ func Define_Map(Difficulty: Int,M: inout [[Int]]) -> ([[Int]],Int) {
 func Create_Map(x: Int,y: Int ) -> [[Int]]{
     
     var Map = [[Int]]()
+    
     for i in 0..<x{
         var vide = [Int]()
         for _ in 0..<y{
