@@ -230,7 +230,7 @@ func initMap(Map [][]string, Bombe int) [][]string {
 							Map[i+1][1] = strconv.Itoa(a_e + 1)
 							a_e = 0
 						}
-					} else if j == len(Map[0])-1 { //Border left
+					} else if j == len(Map[0])-1 { //Border right
 						if Map[i-1][len(Map[0])-1] != "x" {
 							a_a, _ := strconv.Atoi(Map[i-1][len(Map[0])-1])
 							Map[i-1][len(Map[0])-1] = strconv.Itoa(a_a + 1)
@@ -308,17 +308,18 @@ func initMap(Map [][]string, Bombe int) [][]string {
 }
 
 func main() {
-	Size_x := 50
-	Size_y := 50
+	Size_x := 16
+	Size_y := 16
 	Difficulty := 2
 	Choose := 1
 
 	Map, Bombes := StartNewgame(Size_x, Size_y, Difficulty, Choose-1)
 	Map_End := initMap(Map, Bombes)
+
 	for i := range Map_End {
 		fmt.Println(Map_End[i])
 	}
-
+	fmt.Println(" ")
 	StartNewgame(Size_x, Size_y, Difficulty, Choose)
 
 }
